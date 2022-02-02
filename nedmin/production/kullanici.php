@@ -1,0 +1,75 @@
+<?php 
+
+include 'header.php'; 
+
+//Belirli veriyi seçme işlemi
+$kullanicisor=$db->prepare("SELECT * FROM kullanici");
+$kullanicisor->execute();
+?>
+<div class="right_col" role="main">
+  <div class="">
+
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Kullanıcı Listeleme <small>,
+
+
+
+            </small></h2>
+          
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+
+
+            <!-- Div İçerik Başlangıç -->
+
+            <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th>Kayıt Tarih</th>
+                  <th>Ad </th>
+                  <th>Soyad </th>
+                  <th>Mail Adresi</th>
+                  <th>Telefon</th>
+                  <th>Düzenleme İşlemi</th>
+                  <th>Silme İşlemi</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <?php 
+
+                while($kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC)) {?>
+
+
+                <tr>
+                  <td><?php echo $kullanicicek['kullanici_zaman'] ?></td>
+                  <td><?php echo $kullanicicek['kullanici_ad'] ?></td>
+                  <td><?php echo $kullanicicek['kullanici_soyad'] ?></td>
+                  <td><?php echo $kullanicicek['kullanici_mail'] ?></td>
+                  <td><?php echo $kullanicicek['kullanici_gsm'] ?></td>
+                  <td><center><a href="kullanici-duzenle.php?kullanici_id=<?php echo $kullanicicek['kullanici_id']; ?>"><button class="btn btn-primary btn-xs">Düzenle</button></a></center></td>
+                  <td><center><a href="../netting/islem.php?kullanici_id=<?php echo $kullanicicek['kullanici_id']; ?>&kullanicisil=ok"><button class="btn btn-danger btn-xs">Sil</button></a></center></td>
+                </tr>
+
+
+
+                <?php  }
+
+                ?>
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+ </div>
+</div>
+<?php include 'footer.php'; ?>
